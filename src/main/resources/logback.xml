@@ -1,0 +1,38 @@
+<configuration>
+
+	<property name="loggingPattern"
+		value="%date{ISO8601} %-5level %t %logger{0} : %M : %L - %msg%n" />
+	<property name="loggingHome"
+		value="/logs/diman-help" />
+
+	<appender name="tracefile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${loggingHome}/diman-help-trace.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>14</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${loggingPattern}</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="STDOUT"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${loggingPattern}</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="org.apache.cxf" level="INFO" />
+	<logger name="org.springframework" level="INFO" />
+	<logger name="com.zaxxer.hikari" level="ERROR" />
+
+	<root level="DEBUG">
+		<!--<appender-ref ref="tracefile" />-->
+		<appender-ref ref="STDOUT" />
+	</root>
+
+</configuration>
